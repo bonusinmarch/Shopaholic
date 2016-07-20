@@ -20,6 +20,44 @@
                 android:adjustViewBounds="true"
                 android:id="@+id/img_det"
                 android:layout_marginBottom="16dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:scaleType="centerCrop"
+                    android:background="#cccccc"
+                    android:layout_marginRight="4dp"
+                    android:id="@+id/img_thumb_a"/>
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:scaleType="centerCrop"
+                    android:background="#cccccc"
+                    android:layout_marginRight="4dp"
+                    android:id="@+id/img_thumb_b"/>
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:scaleType="centerCrop"
+                    android:background="#cccccc"
+                    android:layout_marginRight="4dp"
+                    android:id="@+id/img_thumb_c"/>
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:scaleType="centerCrop"
+                    android:background="#cccccc"
+                    android:layout_marginRight="4dp"
+                    android:id="@+id/img_thumb_d"/>
+
+
+            </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

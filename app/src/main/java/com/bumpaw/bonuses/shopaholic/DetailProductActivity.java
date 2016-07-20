@@ -3,6 +3,7 @@ package com.bumpaw.bonuses.shopaholic;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,12 +13,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-public class DetailProductActivity extends AppCompatActivity {
+public class DetailProductActivity extends AppCompatActivity implements
+        View.OnClickListener{
 
     private TextView tvDetName, tvDetPrice, tvDetDesc;
     private Button btn_cart;
     private ImageView imgDetail;
     private Spinner spn_count;
+    private ImageView imgThumbA, imgThumbB, imgThumbC, imgThumbD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,18 @@ public class DetailProductActivity extends AppCompatActivity {
         btn_cart = (Button)findViewById(R.id.btn_det_addcart);
         imgDetail = (ImageView)findViewById(R.id.img_det);
         spn_count = (Spinner)findViewById(R.id.spin_count);
+
+        imgThumbA = (ImageView)findViewById(R.id.img_thumb_a);
+        imgThumbB = (ImageView)findViewById(R.id.img_thumb_b);
+        imgThumbC = (ImageView)findViewById(R.id.img_thumb_c);
+        imgThumbD = (ImageView)findViewById(R.id.img_thumb_d);
+
+        imgThumbA.setOnClickListener(this);
+        imgThumbB.setOnClickListener(this);
+        imgThumbC.setOnClickListener(this);
+        imgThumbD.setOnClickListener(this);
+
+
 
         Product selectedProduct = getIntent().getParcelableExtra("product");
         tvDetName.setText(selectedProduct.getName());
@@ -52,6 +67,12 @@ public class DetailProductActivity extends AppCompatActivity {
                 "\n" +
                 "kit termasuk 4 warna menyanjung universal untuk semua nada alis, sikat alis miring, sisir alis, dan 3 stensil yang berbeda untuk membantu Anda mendapatkan bentuk yang sempurna untuk wajah Anda. Sekarang Anda dapat mengisi, menentukan, dan bentuk alis Anda tidak seperti sebelumnya!");
 
+        Glide.with(DetailProductActivity.this).load(SampleData.makeupthumb[0]).into(imgThumbA);
+        Glide.with(DetailProductActivity.this).load(SampleData.makeupthumb[1]).into(imgThumbB);
+        Glide.with(DetailProductActivity.this).load(SampleData.makeupthumb[2]).into(imgThumbC);
+        Glide.with(DetailProductActivity.this).load(SampleData.makeupthumb[3]).into(imgThumbD);
+
+
     }
 
     @Override
@@ -60,5 +81,29 @@ public class DetailProductActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        String imageUri = null;
+        switch (v.getId()){
+            case R.id.img_thumb_a:
+                imageUri = SampleData.makeupthumb[0];
+                break;
+            case R.id.img_thumb_b:
+                imageUri = SampleData.makeupthumb[1];
+                break;
+            case R.id.img_thumb_c:
+                imageUri = SampleData.makeupthumb[2];
+                break;
+            case R.id.img_thumb_d:
+                imageUri = SampleData.makeupthumb[3];
+                break;
+
+        };
+
+        if (imageUri != null){
+            Glide.with(DetailProductActivity.this).load(imageUri).into(imgDetail);
+        }
     }
 }
