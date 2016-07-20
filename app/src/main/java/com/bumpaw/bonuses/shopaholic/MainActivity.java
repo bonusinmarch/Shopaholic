@@ -13,6 +13,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements
         AdapterView.OnItemClickListener{
 
+    //HALO OM RIYAN
     private ListView lvCategory;
     private String[] categories = new String[]{
             "MakeUp", "Tas", "Sepatu", "Lingerie", "Dress", "Celana"
