@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity implements
 
     //HALO OM RIYAN
     //Halo Om Bonus
+    //Haloololo
     private ListView lvCategory;
     private String[] categories = new String[]{
             "MakeUp", "Tas", "Sepatu", "Lingerie", "Dress", "Celana"
