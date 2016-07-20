@@ -1,5 +1,6 @@
 package com.bumpaw.bonuses.shopaholic;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
+
 public class DetailProductActivity extends AppCompatActivity implements
         View.OnClickListener{
 
@@ -21,6 +24,7 @@ public class DetailProductActivity extends AppCompatActivity implements
     private ImageView imgDetail;
     private Spinner spn_count;
     private ImageView imgThumbA, imgThumbB, imgThumbC, imgThumbD;
+    private int currentImagePosition=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,7 @@ public class DetailProductActivity extends AppCompatActivity implements
         imgThumbC.setOnClickListener(this);
         imgThumbD.setOnClickListener(this);
 
-
+        imgDetail.setOnClickListener(this);
 
         Product selectedProduct = getIntent().getParcelableExtra("product");
         tvDetName.setText(selectedProduct.getName());
@@ -75,6 +79,8 @@ public class DetailProductActivity extends AppCompatActivity implements
 
     }
 
+
+    //dembele
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home){
@@ -89,15 +95,31 @@ public class DetailProductActivity extends AppCompatActivity implements
         switch (v.getId()){
             case R.id.img_thumb_a:
                 imageUri = SampleData.makeupthumb[0];
+                currentImagePosition=0;
                 break;
             case R.id.img_thumb_b:
                 imageUri = SampleData.makeupthumb[1];
+                currentImagePosition=1;
                 break;
             case R.id.img_thumb_c:
                 imageUri = SampleData.makeupthumb[2];
+                currentImagePosition=2;
+
                 break;
             case R.id.img_thumb_d:
                 imageUri = SampleData.makeupthumb[3];
+                currentImagePosition=3;
+
+                break;
+            case R.id.img_det:
+                ArrayList<String> list = new ArrayList<>();
+                for (int i=0; i < SampleData.makeupthumb.length; i++){
+                    list.add(SampleData.makeupthumb[i]);
+                }
+                Intent mIntent = new Intent(DetailProductActivity.this, DetailImageActivity.class);
+                mIntent.putExtra("url_images", list);
+                mIntent.putExtra("position", currentImagePosition);
+                startActivity(mIntent);
                 break;
 
         };
