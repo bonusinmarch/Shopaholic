@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:id="@+id/tv_det_name"
-                android:text="Name"
+                android:text="Product Name"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:gravity="center"/>
