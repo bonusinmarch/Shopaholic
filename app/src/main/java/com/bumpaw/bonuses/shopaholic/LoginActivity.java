@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity implements
                 }
                 break;
         }
-
+//BUMPAW
         if(intent != null) {
             startActivity(intent);
         }
