@@ -160,6 +160,11 @@ public class DetailProductActivity extends AppCompatActivity implements
                 }
                 break;
 
+            case R.id.img_cart:
+                Intent intent = new Intent(DetailProductActivity.this, CartActivity.class);
+                startActivity(intent);
+                break;
+
         };
 
         if (imageUri != null){

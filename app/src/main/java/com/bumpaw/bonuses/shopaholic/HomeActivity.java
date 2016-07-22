@@ -192,6 +192,10 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
+        if (v.getId() == R.id.img_cart){
+            Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+            startActivity(intent);
+        }
 
     }
 
