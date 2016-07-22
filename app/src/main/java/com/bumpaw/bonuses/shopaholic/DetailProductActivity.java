@@ -12,6 +12,7 @@ import android.widget.Space;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.bumpaw.bonuses.shopaholic.db.CartHelper;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class DetailProductActivity extends AppCompatActivity implements
     private Spinner spn_count;
     private ImageView imgThumbA, imgThumbB, imgThumbC, imgThumbD;
     private int currentImagePosition=0;
+
+    private CartHelper cartHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,7 @@ public class DetailProductActivity extends AppCompatActivity implements
         imgThumbD.setOnClickListener(this);
 
         imgDetail.setOnClickListener(this);
+        btn_cart.setOnClickListener(this);
 
         Product selectedProduct = getIntent().getParcelableExtra("product");
         tvDetName.setText(selectedProduct.getName());
@@ -75,6 +79,8 @@ public class DetailProductActivity extends AppCompatActivity implements
         Glide.with(DetailProductActivity.this).load(SampleData.makeupthumb[1]).into(imgThumbB);
         Glide.with(DetailProductActivity.this).load(SampleData.makeupthumb[2]).into(imgThumbC);
         Glide.with(DetailProductActivity.this).load(SampleData.makeupthumb[3]).into(imgThumbD);
+
+        cartHelper = new CartHelper();
 
 
     }
