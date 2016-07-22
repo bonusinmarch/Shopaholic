@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 /**
@@ -13,9 +14,11 @@ import io.realm.RealmResults;
 public class CartHelper {
 
     private Realm realm;
-
-    public CartHelper(){
-        realm = Realm.getDefaultInstance();
+    private Context mContext;
+    public CartHelper(Context mContext){
+        this.mContext = mContext;
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(mContext).build();
+        realm = Realm.getInstance(realmConfiguration);
     }
 
     public void create(int productId,

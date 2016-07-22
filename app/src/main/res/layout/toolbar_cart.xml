@@ -16,6 +16,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HOME"
+                android:id="@+id/tv_title"
+                android:layout_centerVertical="true"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:textColor="#FFFF"
+                android:layout_alignParentLeft="true"/>
+
             <FrameLayout
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -32,6 +42,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_circle"
                     android:text="5"
+                    android:id="@+id/tv_cart"
                     android:gravity="center"
                     android:padding="2dp"
                     android:textColor="#FFFF"

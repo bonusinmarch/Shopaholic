@@ -15,7 +15,9 @@
 
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ProductActivity" />
-        <activity android:name=".DetailProductActivity" />
+        <activity android:name=".DetailProductActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".DetailImageActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>

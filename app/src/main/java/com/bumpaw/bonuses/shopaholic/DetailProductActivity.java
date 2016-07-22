@@ -3,6 +3,7 @@ package com.bumpaw.bonuses.shopaholic;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,8 +12,10 @@ import android.widget.ImageView;
 import android.widget.Space;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumpaw.bonuses.shopaholic.db.CartHelper;
+import com.bumpaw.bonuses.shopaholic.db.CartItem;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -27,15 +30,20 @@ public class DetailProductActivity extends AppCompatActivity implements
     private ImageView imgThumbA, imgThumbB, imgThumbC, imgThumbD;
     private int currentImagePosition=0;
 
+    private TextView tvCart, tvTitle;
+    private ImageView imgCart;
+
     private CartHelper cartHelper;
+    private Toolbar toolbar;
+
+    private Product selectedProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_product);
 
-        getSupportActionBar().setTitle("Detail Product");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         tvDetName = (TextView)findViewById(R.id.tv_det_name);
         tvDetPrice = (TextView)findViewById(R.id.tv_det_price);
@@ -49,6 +57,14 @@ public class DetailProductActivity extends AppCompatActivity implements
         imgThumbC = (ImageView)findViewById(R.id.img_thumb_c);
         imgThumbD = (ImageView)findViewById(R.id.img_thumb_d);
 
+
+        tvTitle = (TextView)findViewById(R.id.tv_title);
+        tvCart = (TextView)findViewById(R.id.tv_cart);
+        imgCart = (ImageView)findViewById(R.id.img_cart);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+
+        imgCart.setOnClickListener(this);
+
         imgThumbA.setOnClickListener(this);
         imgThumbB.setOnClickListener(this);
         imgThumbC.setOnClickListener(this);
@@ -57,7 +73,11 @@ public class DetailProductActivity extends AppCompatActivity implements
         imgDetail.setOnClickListener(this);
         btn_cart.setOnClickListener(this);
 
-        Product selectedProduct = getIntent().getParcelableExtra("product");
+        setSupportActionBar(toolbar);
+        tvTitle.setText("Detail Produk");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        selectedProduct = getIntent().getParcelableExtra("product");
         tvDetName.setText(selectedProduct.getName());
         tvDetPrice.setText(selectedProduct.getPrice());
         Glide.with(DetailProductActivity.this).load(selectedProduct.getImageUri()).into(imgDetail);
@@ -80,7 +100,7 @@ public class DetailProductActivity extends AppCompatActivity implements
         Glide.with(DetailProductActivity.this).load(SampleData.makeupthumb[2]).into(imgThumbC);
         Glide.with(DetailProductActivity.this).load(SampleData.makeupthumb[3]).into(imgThumbD);
 
-        cartHelper = new CartHelper();
+        cartHelper = new CartHelper(DetailProductActivity.this);
 
 
     }
@@ -127,11 +147,41 @@ public class DetailProductActivity extends AppCompatActivity implements
                 mIntent.putExtra("position", currentImagePosition);
                 startActivity(mIntent);
                 break;
+            case R.id.btn_det_addcart:
+                if (cartHelper.isItemAlreadyExist((int)selectedProduct.getId())){
+                    Toast.makeText(DetailProductActivity.this, "This Product Already in Cart", Toast.LENGTH_SHORT).show();
+                }else {
+                    cartHelper.create((int)selectedProduct.getId(),
+                            selectedProduct.getName(),
+                            selectedProduct.getImageUri(), 1,
+                            Double.parseDouble(selectedProduct.getPrice()));
+                    Toast.makeText(DetailProductActivity.this, "This Product Successfully Added", Toast.LENGTH_SHORT).show();
+                    updateCartQty();
+                }
+                break;
 
         };
 
         if (imageUri != null){
             Glide.with(DetailProductActivity.this).load(imageUri).into(imgDetail);
         }
+    }
+
+    private void updateCartQty(){
+        ArrayList<CartItem> list = cartHelper.getAll();
+        tvCart.setVisibility(View.GONE);
+        if (list != null){
+            if (list.size() > 0) {
+                int cartQty = list.size();
+                tvCart.setVisibility(View.VISIBLE);
+                tvCart.setText(String.valueOf(cartQty));
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateCartQty();
     }
 }
